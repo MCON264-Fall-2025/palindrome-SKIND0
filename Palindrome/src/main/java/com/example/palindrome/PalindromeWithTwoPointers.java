@@ -1,5 +1,5 @@
 package com.example.palindrome;
-
+import java.util.*;
 public final class PalindromeWithTwoPointers {
     private PalindromeWithTwoPointers() { /* utility */ }
 
@@ -11,7 +11,25 @@ public final class PalindromeWithTwoPointers {
      * @throws IllegalArgumentException if s is null
      */
     public static boolean isPalindrome(String s) {
-        throw new IllegalArgumentException("Not implemented yet");
+        if (s == null) {
+            throw new IllegalArgumentException("Input cannot be null");
+        }
+        String cleaned = normalize(s);
+
+        Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
+
+        for (char c : cleaned.toCharArray()) {
+            stack.push(c);
+            queue.add(c);
+        }
+
+        while (!stack.isEmpty()) {
+            if (stack.pop() != queue.remove()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // package-private for testing if needed
